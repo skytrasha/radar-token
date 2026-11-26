@@ -111,7 +111,7 @@ async function main() {
   await cmd('Page.enable');
   await cmd('Runtime.enable');
   await cmd('Emulation.setDeviceMetricsOverride', {
-    width: 1400, height: 1100, deviceScaleFactor: 1.5, mobile: false,
+    width: 1400, height: 1100, deviceScaleFactor: 1, mobile: false,
   });
 
   const pageUrl = pathToFileURL(join(OUT_DIR, 'dashboard', 'index.html')).href;
