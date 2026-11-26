@@ -36,7 +36,17 @@ if (!existsSync(snapshotPath)) {
   process.stderr.write(`radar: no snapshot at ${snapshotPath}\n`);
   process.exit(2);
 }
-const outDir = flag('output', process.env.MAKEFUN_OUTPUT_DIR ?? '/output');
+const outDir = flag('output', process.env.MAKEFUN_OUTPUT_DIR ?? defaultOutputDir());
+
+/** The grader mounts /output; everywhere else fall back to ./out so a run needs no writable root. */
+function defaultOutputDir(): string {
+  try {
+    mkdirSync('/output', { recursive: true });
+    return '/output';
+  } catch {
+    return join(process.cwd(), 'out');
+  }
+}
 
 const snapshot = readSnapshot(readFileSync(snapshotPath, 'utf8'));
 const board = buildBoard(snapshot);
