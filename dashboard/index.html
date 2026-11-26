@@ -21,12 +21,12 @@
 <section class="formula" aria-labelledby="fhead">
   <h2 id="fhead">How the number is made</h2>
   <p class="eq">implied = <span>TVL</span> × <span id="f-base">0.25</span> × (1 + clamp(Δ7d, <span id="f-gf">−60</span>, <span id="f-gc">120</span>)% × <span id="f-gw">0.5</span>) × (<span id="f-mf">0.6</span> + min(age, <span id="f-md">1095</span>)/<span id="f-md2">1095</span> × <span id="f-mr">0.4</span>)</p>
-  <p class="note">Every row goes through this one function. No protocol is named in the code, and the page recomputes each row from the snapshot's figures to show the arithmetic and the board agree.</p>
+  <p class="note">Every row goes through this one function. No protocol is named in the code, and the page recomputes each row from the snapshot's figures to show the arithmetic and the board agree. Open a row to see its three factors broken out and the deposit plan priced for that size.</p>
 </section>
 
 <nav class="controls" aria-label="Filters">
   <div class="field grow">
-    <label for="q">Find</label>
+    <label for="q">Find <span class="hint">/</span></label>
     <input id="q" type="search" placeholder="name, slug, category or chain" autocomplete="off">
   </div>
   <div class="field">
@@ -63,14 +63,14 @@
   <table class="board">
     <thead>
       <tr>
-        <th class="num"><button data-sort="rank">#</button></th>
-        <th><button data-sort="name">Protocol</button></th>
-        <th><button data-sort="category">Category</button></th>
-        <th class="num"><button data-sort="tvl">TVL</button></th>
-        <th class="num"><button data-sort="change">7d</button></th>
-        <th class="num"><button data-sort="age">Age</button></th>
-        <th class="num"><button data-sort="implied">Implied value</button></th>
-        <th class="num"><button data-sort="ratio">× TVL</button></th>
+        <th class="num"><button data-sort="rank" aria-label="Sort by rank">#</button></th>
+        <th><button data-sort="name" aria-label="Sort by name">Protocol</button></th>
+        <th><button data-sort="category" aria-label="Sort by category">Category</button></th>
+        <th class="num"><button data-sort="tvl" aria-label="Sort by TVL">TVL</button></th>
+        <th class="num"><button data-sort="change" aria-label="Sort by 7 day change">7d</button></th>
+        <th class="num"><button data-sort="age" aria-label="Sort by age">Age</button></th>
+        <th class="num"><button data-sort="implied" aria-label="Sort by implied value">Implied value</button></th>
+        <th class="num"><button data-sort="ratio" aria-label="Sort by implied over TVL">× TVL</button></th>
         <th class="act"></th>
       </tr>
     </thead>
@@ -90,7 +90,7 @@
   </table>
 </section>
 
-<aside class="drawer" id="drawer" hidden aria-live="polite">
+<aside class="drawer" id="drawer" hidden aria-live="polite" aria-label="Protocol detail">
   <div class="drawer-head">
     <div>
       <p class="kicker" id="d-rank">—</p>
@@ -101,12 +101,12 @@
   </div>
   <dl class="d-figures" id="d-figures"></dl>
   <div class="d-calc" id="d-calc"></div>
-  <h3>The farm plan</h3>
+  <h3>The farm plan <button class="ghost tiny" id="d-copy" type="button">Copy</button></h3>
   <ol class="plan" id="d-plan"></ol>
 </aside>
 
 <footer>
-  <p>Every figure on this page comes from one sealed snapshot (<span id="fsource">—</span>) and one arithmetic. The page holds no network call: it renders the dataset the program wrote.</p>
+  <p>Every figure on this page comes from one sealed snapshot (<span id="fsource">—</span>) and one arithmetic. The page holds no network call: it renders the dataset the program wrote. Keys: <span class="kbd">/</span> find, <span class="kbd">j</span> <span class="kbd">k</span> move, <span class="kbd">enter</span> open, <span class="kbd">esc</span> close.</p>
 </footer>
 
 <script src="../data.js"></script>

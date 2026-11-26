@@ -1,5 +1,5 @@
 /* Pre-Token Radar. A dark trading-floor palette with one signal color: everything that is not a
-   number or a name is quiet, so the implied value column reads first. */
+   number or a name stays quiet, so the implied value column reads first. */
 
 :root {
   --bg: #0c1118;
@@ -104,6 +104,7 @@ a { color: var(--blue); }
 .field { display: flex; flex-direction: column; gap: 3px; }
 .field.grow { flex: 1 1 240px; }
 .field label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-faint); }
+.field .hint { color: var(--ink-faint); opacity: 0.6; }
 .field input, .field select {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -126,6 +127,7 @@ button.ghost {
   cursor: pointer;
 }
 button.ghost:hover { border-color: var(--gold); color: var(--gold); }
+button.ghost.tiny { padding: 2px 9px; font-size: 11px; margin-left: 6px; vertical-align: 2px; }
 
 .countline { margin: 2px 0 12px; font-family: var(--mono); font-size: 12px; color: var(--ink-faint); min-height: 1.2em; }
 
@@ -150,9 +152,12 @@ button.ghost:hover { border-color: var(--gold); color: var(--gold); }
   padding: 0;
 }
 .board th button:hover { color: var(--gold); }
+.board th button[data-dir="asc"]::after { content: ' ↑'; color: var(--gold); }
+.board th button[data-dir="desc"]::after { content: ' ↓'; color: var(--gold); }
 .board td { padding: 8px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
 .board tbody tr { cursor: pointer; }
 .board tbody tr:hover { background: rgba(98, 168, 255, 0.05); }
+.board tbody tr.sel { background: rgba(240, 180, 41, 0.07); }
 .board tbody tr.drift { outline: 1px dashed var(--red); outline-offset: -1px; }
 .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .strong { font-weight: 700; color: var(--gold); font-size: 15px; }
@@ -224,9 +229,18 @@ button.open:hover { color: var(--gold); border-color: var(--gold); }
 .d-calc .note { font-size: 12.5px; }
 .plan { margin: 8px 0 0; padding-left: 22px; }
 .plan li { margin: 0 0 12px; font-size: 13.5px; color: var(--ink); line-height: 1.55; }
+.copied { color: var(--green); }
 
 footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); }
 footer p { font-size: 12px; color: var(--ink-faint); max-width: 88ch; }
+.kbd {
+  font-family: var(--mono);
+  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0 4px;
+  color: var(--ink-dim);
+}
 
 @media (max-width: 860px) {
   body { padding: 18px 14px 50px; }
