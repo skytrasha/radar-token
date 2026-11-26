@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-Token Radar — protocols ranked by implied launch value</title>
+<link rel="stylesheet" href="radar.css">
+</head>
+<body>
+<a class="skip" href="#grid">Skip to the ranking</a>
+
+<header class="masthead">
+  <div class="mast-left">
+    <p class="kicker">Snapshot <span id="asof">—</span> · floor <span id="floor">—</span> · model <span id="mname">—</span></p>
+    <h1>Pre-Token Radar</h1>
+    <p class="tagline">Every protocol in this snapshot that has <strong>no token yet</strong>, ranked by the launch value its own TVL, its own week of growth and its own age imply. Tokens that already trade are kept apart, below.</p>
+  </div>
+  <dl class="tally" id="tally"></dl>
+</header>
+
+<section class="formula" aria-labelledby="fhead">
+  <h2 id="fhead">How the number is made</h2>
+  <p class="eq">implied = <span>TVL</span> × <span id="f-base">0.25</span> × (1 + clamp(Δ7d, <span id="f-gf">−60</span>, <span id="f-gc">120</span>)% × <span id="f-gw">0.5</span>) × (<span id="f-mf">0.6</span> + min(age, <span id="f-md">1095</span>)/<span id="f-md2">1095</span> × <span id="f-mr">0.4</span>)</p>
+  <p class="note">Every row goes through this one function. No protocol is named in the code, and the page recomputes each row from the snapshot's figures to show the arithmetic and the board agree.</p>
+</section>
+
+<nav class="controls" aria-label="Filters">
+  <div class="field grow">
+    <label for="q">Find</label>
+    <input id="q" type="search" placeholder="name, slug, category or chain" autocomplete="off">
+  </div>
+  <div class="field">
+    <label for="cat">Category</label>
+    <select id="cat"><option value="all">All categories</option></select>
+  </div>
+  <div class="field">
+    <label for="chain">Chain</label>
+    <select id="chain"><option value="all">All chains</option></select>
+  </div>
+  <div class="field">
+    <label for="scope">Show</label>
+    <select id="scope">
+      <option value="all">Whole board</option>
+      <option value="watch">Watchlist only</option>
+      <option value="below">Early tail only</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="minv">Min implied</label>
+    <select id="minv">
+      <option value="0">Any</option>
+      <option value="1000000">$1M+</option>
+      <option value="10000000">$10M+</option>
+      <option value="50000000">$50M+</option>
+    </select>
+  </div>
+  <button id="reset" class="ghost" type="button">Reset</button>
+</nav>
+
+<p class="countline" id="countline" role="status"></p>
+
+<main id="grid" tabindex="-1">
+  <table class="board">
+    <thead>
+      <tr>
+        <th class="num"><button data-sort="rank">#</button></th>
+        <th><button data-sort="name">Protocol</button></th>
+        <th><button data-sort="category">Category</button></th>
+        <th class="num"><button data-sort="tvl">TVL</button></th>
+        <th class="num"><button data-sort="change">7d</button></th>
+        <th class="num"><button data-sort="age">Age</button></th>
+        <th class="num"><button data-sort="implied">Implied value</button></th>
+        <th class="num"><button data-sort="ratio">× TVL</button></th>
+        <th class="act"></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="empty" id="empty" hidden>No protocol on the board matches those filters.</p>
+</main>
+
+<section class="live" aria-labelledby="lhead">
+  <h2 id="lhead">Already trading: kept out of the ranking</h2>
+  <p class="note">These protocols have a token. They are shown with the market's own numbers and are never scored against the pre-token board, because a launch that already happened is not a launch to catch.</p>
+  <table class="board small">
+    <thead>
+      <tr><th>Protocol</th><th>Category</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">TVL / cap</th><th class="num">7d</th></tr>
+    </thead>
+    <tbody id="live"></tbody>
+  </table>
+</section>
+
+<aside class="drawer" id="drawer" hidden aria-live="polite">
+  <div class="drawer-head">
+    <div>
+      <p class="kicker" id="d-rank">—</p>
+      <h2 id="d-name">—</h2>
+      <p class="d-meta" id="d-meta"></p>
+    </div>
+    <button class="ghost" id="d-close" type="button">Close</button>
+  </div>
+  <dl class="d-figures" id="d-figures"></dl>
+  <div class="d-calc" id="d-calc"></div>
+  <h3>The farm plan</h3>
+  <ol class="plan" id="d-plan"></ol>
+</aside>
+
+<footer>
+  <p>Every figure on this page comes from one sealed snapshot (<span id="fsource">—</span>) and one arithmetic. The page holds no network call: it renders the dataset the program wrote.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="radar.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+.chrome-profile/
+out/
+.stage/
+node_modules/
+*.tar.gz
